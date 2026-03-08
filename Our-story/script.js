@@ -1,7 +1,7 @@
 const reasons = [
   {
     title: "You would never go hungry",
-    answer: "I can cook. Not Michelin star level yet but definitely good enough that you would never go hungry around me.",
+    answer: "I can cook. Not Michelin star level yet, but definitely good enough that you would never go hungry around me.",
     image: "img1.jpg"
   },
   {
@@ -108,6 +108,14 @@ const sceneTransition = document.getElementById("sceneTransition");
 const secretTrigger = document.getElementById("secretTrigger");
 const secretMessage = document.getElementById("secretMessage");
 
+function track(eventName, data = {}) {
+  console.log("TRACK:", eventName, data);
+
+  if (typeof gtag === "function") {
+    gtag("event", eventName, data);
+  }
+}
+
 function typeTitle() {
   mainTitle.textContent = "";
   let i = 0;
@@ -148,6 +156,7 @@ function typeEnding(title, text) {
       setTimeout(typeTextPart, 28);
     } else {
       endingRestartBtn.classList.remove("hidden");
+      track("ending_completed");
     }
   }
 
@@ -171,6 +180,7 @@ function fadeInMusic() {
       }, 200);
     }).catch((error) => {
       console.log("Music blocked:", error);
+      track("music_blocked");
     });
   }
 }
@@ -260,15 +270,19 @@ function startLoaderSequence() {
         musicToggle.classList.remove("hidden");
         typeTitle();
         loadReason();
+        track("main_content_shown");
       }, 350);
     }
   }, 450);
 }
 
 function openCase() {
+  track("open_case_clicked");
+
   if (!musicStarted) {
     fadeInMusic();
     musicStarted = true;
+    track("music_started");
   }
 
   introScreen.classList.add("hide");
@@ -281,6 +295,7 @@ function openCase() {
 function showEndingScreen() {
   finalScreen.classList.add("hidden");
   endingScreen.classList.remove("hidden");
+  track("ending_screen_shown");
 
   typeEnding(
     "Jokes aside...",
@@ -294,9 +309,11 @@ musicToggle.addEventListener("click", () => {
   if (bgMusic.paused) {
     bgMusic.play().catch(() => {});
     musicToggle.textContent = "🔊";
+    track("music_unmuted");
   } else {
     bgMusic.pause();
     musicToggle.textContent = "🔇";
+    track("music_muted");
   }
 });
 
@@ -315,6 +332,11 @@ reasonBtn.addEventListener("click", () => {
 
   spawnFloating();
 
+  track("reason_opened", {
+    index: currentIndex + 1,
+    reason_title: reasons[currentIndex].title
+  });
+
   if (currentIndex < reasons.length - 1) {
     nextBtn.textContent = "Next Point";
   } else {
@@ -326,6 +348,11 @@ reasonBtn.addEventListener("click", () => {
 
 nextBtn.addEventListener("click", () => {
   if (!answerOpened) return;
+
+  track("next_clicked", {
+    from_index: currentIndex + 1,
+    from_reason: reasons[currentIndex].title
+  });
 
   playSceneTransition();
 
@@ -340,6 +367,7 @@ nextBtn.addEventListener("click", () => {
       progressWrap.classList.add("hidden");
       finalScreen.classList.remove("hidden");
       finalScreen.classList.add("show");
+      track("final_screen_reached");
     }, 220);
   }
 });
@@ -348,6 +376,7 @@ yesBtn.addEventListener("click", () => {
   finalReply.textContent = "Excellent decision. Strong judgment.";
   finalReply.classList.remove("hidden");
   closingLine.classList.remove("hidden");
+  track("clicked_yes");
 
   setTimeout(showEndingScreen, 1800);
 });
@@ -356,6 +385,7 @@ talkBtn.addEventListener("click", () => {
   finalReply.textContent = "That works for me. A real conversation was always the goal.";
   finalReply.classList.remove("hidden");
   closingLine.classList.remove("hidden");
+  track("clicked_lets_talk");
 
   setTimeout(showEndingScreen, 1800);
 });
@@ -363,6 +393,7 @@ talkBtn.addEventListener("click", () => {
 secretTrigger.addEventListener("click", () => {
   secretMessage.classList.remove("hidden");
   secretTrigger.textContent = "Okay fine… you found the secret reason.";
+  track("secret_trigger_clicked");
 });
 
 restartBtn.addEventListener("click", () => {
@@ -381,6 +412,7 @@ restartBtn.addEventListener("click", () => {
   progressWrap.classList.remove("hidden");
 
   loadReason();
+  track("restart_from_final");
 });
 
 endingRestartBtn.addEventListener("click", () => {
@@ -400,4 +432,7 @@ endingRestartBtn.addEventListener("click", () => {
   progressWrap.classList.remove("hidden");
 
   loadReason();
+  track("restart_from_ending");
 });
+
+track("page_loaded");
