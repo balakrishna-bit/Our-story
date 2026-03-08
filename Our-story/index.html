@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>One More Chance</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <audio id="bgMusic" loop preload="auto">
+    <source src="music.mp3" type="audio/mpeg" />
+  </audio>
+
+  <div id="introScreen" class="intro-screen">
+    <div class="intro-content">
+      <p class="intro-label">Confidential Submission</p>
+      <h1 class="intro-title">A Case File Has Been Submitted for Neha</h1>
+      <p class="intro-subtitle">Open only if your heart is still accepting evidence.</p>
+      <button id="openCaseBtn" class="open-case-btn">Open The Case</button>
+      <div id="loaderScreen" class="loader-screen hidden">
+  <div class="loader-content">
+    <p class="loader-label">Preparing file</p>
+    <h2 class="loader-title">Organizing emotional evidence...</h2>
+    <div class="loader-bar">
+      <div id="loaderFill" class="loader-fill"></div>
+    </div>
+    <p id="loaderText" class="loader-text">Please remain calm while the case is being prepared.</p>
+  </div>
+</div>
+    </div>
+  </div>
+
+  <div class="stars"></div>
+  <div class="overlay"></div>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div id="floatingLayer"></div>
+  <div id="sceneTransition" class="scene-transition hidden"></div>
+
+  <button id="musicToggle" class="music-btn hidden" aria-label="Toggle music">🔊</button>
+
+  <main class="container hidden" id="mainContent">
+    <p class="small-text">A case worth hearing</p>
+    <h1 id="mainTitle"></h1>
+    <p class="subtitle">One point at a time. Fair process.</p>
+
+    <div class="progress-wrap" id="progressWrap">
+      <div class="progress-top">
+        <span id="progressText"></span>
+      </div>
+      <div class="progress-bar">
+        <div id="progressFill" class="progress-fill"></div>
+      </div>
+    </div>
+
+    <div class="card fade show" id="card">
+      <button id="reasonBtn" class="reason-big-btn"></button>
+
+      <p id="clickHint" class="click-hint">
+        Tap the point above — my defense is ready.
+      </p>
+
+      <div id="imageWrap" class="image-wrap hidden">
+        <img id="reasonImage" class="reason-image" src="" alt="" />
+      </div>
+
+      <div id="answerBox" class="answerBox hidden">
+        <p id="answerText"></p>
+      </div>
+
+      <button id="nextBtn" class="next-btn hidden">Next Point</button>
+    </div>
+
+    <div id="finalScreen" class="card hidden fade">
+      <p class="verdict-label">Final verdict</p>
+      <h2 class="final-title">After reviewing all evidence...</h2>
+
+      <p class="final-text">
+        I would like to respectfully submit that I am funny, useful, caring,
+        family-approved, and clearly a strong long-term option.
+      </p>
+
+      <p class="final-text">
+        So the only serious question left is:
+      </p>
+
+      <h3 class="final-question">Do I deserve one more chance?</h3>
+
+      <div class="final-buttons">
+        <button id="yesBtn" class="final-action">Yes, obviously</button>
+        <button id="talkBtn" class="final-secondary">Let's talk</button>
+      </div>
+
+      <p id="finalReply" class="final-reply hidden"></p>
+      <p id="closingLine" class="closing-line hidden">Case file remains open. Awaiting your decision.</p>
+
+      <button id="restartBtn" class="restart-btn">Read Again</button>
+    </div>
+
+    <div id="endingScreen" class="ending-screen hidden">
+      <div class="ending-content">
+        <p class="ending-label">One last thing</p>
+        <h2 id="endingTitle" class="ending-title"></h2>
+        <p id="endingText" class="ending-text"></p>
+        <button id="endingRestartBtn" class="restart-btn hidden">Start Again</button>
+      </div>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
