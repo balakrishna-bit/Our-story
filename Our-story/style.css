@@ -52,27 +52,19 @@ body::after {
   text-transform: uppercase;
 }
 
+#mainTitle {
+  font-size: 48px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #ffffff, #ff8da1, #ffffff);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: titleShine 6s linear infinite;
+}
+
 .subtitle {
-    #mainTitle{
-  font-size:48px;
-  margin-top:10px;
-  margin-bottom:10px;
-  font-weight:700;
-
-  background: linear-gradient(90deg,#ffffff,#ff8da1,#ffffff);
-  background-size:200% auto;
-
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-
-  animation:titleShine 6s linear infinite;
-}
-
-@keyframes titleShine{
-  to{
-    background-position:200% center;
-  }
-}
   opacity: 0.88;
   margin-bottom: 30px;
   font-size: 18px;
@@ -209,6 +201,7 @@ button:hover {
   font-size: 20px;
   position: relative;
   overflow: hidden;
+  animation: buttonPulse 2.5s ease-in-out infinite;
 }
 
 .reason-big-btn::after {
@@ -308,6 +301,30 @@ button:hover {
   font-style: italic;
 }
 
+.secret-trigger {
+  margin-top: 18px;
+  opacity: 0.72;
+  font-size: 14px;
+  font-style: italic;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.secret-trigger:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.secret-message {
+  margin-top: 14px;
+  padding: 16px 18px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 14px;
+  font-size: 16px;
+  line-height: 1.7;
+  animation: fadeUp 0.4s ease;
+}
+
 .verdict-label {
   font-size: 12px;
   text-transform: uppercase;
@@ -395,6 +412,66 @@ button:hover {
 .open-case-btn {
   font-size: 18px;
   padding: 16px 34px;
+}
+
+.loader-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 15;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+  background:
+    radial-gradient(circle at top, rgba(255, 120, 160, 0.14), transparent 30%),
+    rgba(4, 6, 18, 0.96);
+}
+
+.loader-screen.hidden {
+  display: none !important;
+}
+
+.loader-content {
+  width: 100%;
+  max-width: 620px;
+  animation: fadeUp 0.6s ease;
+}
+
+.loader-label {
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  opacity: 0.72;
+  margin-bottom: 12px;
+}
+
+.loader-title {
+  font-size: 34px;
+  margin: 0 0 20px;
+}
+
+.loader-bar {
+  width: 100%;
+  height: 10px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.loader-fill {
+  width: 0%;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ff7a92, #ff4d6d);
+  box-shadow: 0 0 18px rgba(255, 77, 109, 0.28);
+  transition: width 0.25s ease;
+}
+
+.loader-text {
+  font-size: 15px;
+  opacity: 0.82;
 }
 
 .music-btn {
@@ -515,10 +592,19 @@ button:hover {
   }
 }
 
+@keyframes buttonPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
 @keyframes sceneFlash {
   0% { opacity: 0; }
   35% { opacity: 1; }
   100% { opacity: 0; }
+}
+
+@keyframes titleShine {
+  to { background-position: 200% center; }
 }
 
 @media (max-width: 640px) {
@@ -549,84 +635,4 @@ button:hover {
   .ending-text {
     font-size: 17px;
   }
-}.secret-trigger {
-  margin-top: 18px;
-  opacity: 0.72;
-  font-size: 14px;
-  font-style: italic;
-  cursor: pointer;
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-.secret-trigger:hover {
-  opacity: 1;
-  transform: translateY(-1px);
-}
-
-.secret-message {
-  margin-top: 14px;
-  padding: 16px 18px;
-  background: rgba(255,255,255,0.08);
-  border-radius: 14px;
-  font-size: 16px;
-  line-height: 1.7;
-  animation: fadeUp 0.4s ease;
-}.loader-screen {
-  position: fixed;
-  inset: 0;
-  z-index: 15;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  text-align: center;
-  background:
-    radial-gradient(circle at top, rgba(255, 120, 160, 0.14), transparent 30%),
-    rgba(4, 6, 18, 0.96);
-}
-
-.loader-screen.hidden {
-  display: none !important;
-}
-
-.loader-content {
-  width: 100%;
-  max-width: 620px;
-  animation: fadeUp 0.6s ease;
-}
-
-.loader-label {
-  font-size: 12px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  opacity: 0.72;
-  margin-bottom: 12px;
-}
-
-.loader-title {
-  font-size: 34px;
-  margin: 0 0 20px;
-}
-
-.loader-bar {
-  width: 100%;
-  height: 10px;
-  background: rgba(255,255,255,0.12);
-  border-radius: 999px;
-  overflow: hidden;
-  margin-bottom: 16px;
-}
-
-.loader-fill {
-  width: 0%;
-  height: 100%;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #ff7a92, #ff4d6d);
-  box-shadow: 0 0 18px rgba(255, 77, 109, 0.28);
-  transition: width 0.25s ease;
-}
-
-.loader-text {
-  font-size: 15px;
-  opacity: 0.82;
 }
